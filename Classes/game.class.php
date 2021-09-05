@@ -12,20 +12,24 @@ class Game {
 
   // Methods
   public function __construct($id) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_URL, 'https://wss2.cex.uk.webuy.io/v3/boxes/' . $id . '/detail');
-    $result = curl_exec($ch);
-    curl_close($ch);
-    $obj = json_decode($result,false);
-    if ($obj != null) {
-        $this->gameName = $obj->response->data->boxDetails[0]->boxName;
-        $this->gameSystem = $obj->response->data->boxDetails[0]->categoryFriendlyName;
-        $this->gamePrice = $obj->response->data->boxDetails[0]->sellPrice;
-        $this->cexID = $obj->response->data->boxDetails[0]->boxId;
+    if ($id != null) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL, 'https://wss2.cex.uk.webuy.io/v3/boxes/' . $id . '/detail');
+        $result = curl_exec($ch);
+        curl_close($ch);
+        $obj = json_decode($result,false);
+        if ($obj != null || $obj->response->ack == "Success") {
+            $this->gameName = $obj->response->data->boxDetails[0]->boxName;
+            $this->gameSystem = $obj->response->data->boxDetails[0]->categoryFriendlyName;
+            $this->gamePrice = $obj->response->data->boxDetails[0]->sellPrice;
+            $this->cexID = $obj->response->data->boxDetails[0]->boxId;
+        } else {
+            echo "No results found!\n";
+        }
     } else {
-        echo "No results found!";
+        throw new UnexpectedValueException("Can't create a new Game object! Invalid ID: $id", 1);
     }
   }
 
@@ -38,6 +42,8 @@ class Game {
         curl_exec($ch);
         curl_close($ch);
         fclose($fp);
+      } else {
+          throw new BadFunctionCallException("No ID given!", 3);
       }
   }
 
@@ -53,6 +59,6 @@ class Game {
   }
 
   public function createRow(){
-      return $this->gameName . "," . $this->gameSystem . "," . $this->estimatedValue() . "," . $this->getBoxArt();
+      return $this->gameName . "|" . $this->gameSystem . "|" . $this->estimatedValue() . "|" . $this->getBoxArt();
   }
 }

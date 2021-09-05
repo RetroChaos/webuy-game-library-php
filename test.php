@@ -2,10 +2,23 @@
 require "Classes\game.class.php";
 require "Classes\search.class.php";
 
-$games = array("Persona 3 FES", "Clock Tower 3", "Dark Cloud", "Ratchet & Clank PS2", "Resident Evil 3");
+$file_path = "input\input.csv";
+$err_count = 0;
 
-foreach ($games as $game) {
-    $searchObj = new Search($game);
-    $gameObj = new Game($searchObj->getID());
-    echo $gameObj->createRow() . "\n";
+if (($handle = fopen($file_path, "r")) !== FALSE) {
+    while (($data = fgetcsv($handle, 1000, "|")) !== FALSE) {
+        foreach ($data as $game) {
+            try {
+                $searchObj = new Search($game);
+                $gameObj = new Game($searchObj->getID());
+                echo $gameObj->createRow() . "\n";
+            }
+            catch (BadFunctionCallException $e) {$err_count++;}
+        }
+    }
+    fclose($handle);
+}
+
+if ($err_count > 0) {
+    echo "Number of errors: $err_count";
 }
