@@ -29,7 +29,7 @@ class Search {
             $which_game = readline("Enter the correct product: ");
             while ($which_game > count($this->searchJSON->response->data->boxes) || $which_game < 0 || is_numeric($which_game) === false) {
                 echo "Error: Unrecognised entry. Please enter a number corrisponding to the correct product.\n";
-                $which_game = (int)readline("Enter the correct product: ");
+                $which_game = readline("Enter the correct product: ");
                 if ($which_game <= count($this->searchJSON->response->data->boxes) && $which_game >= 0 && is_numeric($which_game) === true) {
                     break;
                 }
