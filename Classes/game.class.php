@@ -61,4 +61,8 @@ class Game {
   public function createRow(){
       return $this->gameName . "|" . $this->gameSystem . "|" . $this->estimatedValue() . "|" . $this->getBoxArt();
   }
+
+  public static function createHeaders() {
+      return "Name|System|Estimated Value|Box Art\n";
+  }
 }
