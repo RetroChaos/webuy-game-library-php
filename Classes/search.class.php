@@ -17,24 +17,30 @@ class Search {
 
   public function getID() {
     if ($this->searchJSON->response->data != null) {
-        if (count($this->searchJSON->response->data->boxes) == 1) {
-            return $this->searchJSON->response->data->boxes[0]->boxId;
+        $tmp_gaming_arr = array();
+        foreach ($this->searchJSON->response->data->boxes as $key => $value) { 
+            if($value->superCatId == 1) {
+                array_push($tmp_gaming_arr, $this->searchJSON->response->data->boxes[$key]);
+            }
+        }
+        if (count($tmp_gaming_arr) == 1) {
+            return $tmp_gaming_arr[0]->boxId;
         } else {
             echo "\n-- Warning! Mutliple Products returned! Select the correct one from the array:\n";
-            foreach ($this->searchJSON->response->data->boxes as $key => $value) {
+            foreach ($tmp_gaming_arr as $key => $value) {
                 $reponse_name = $value->boxName;
                 $reponse_console = $value->categoryFriendlyName;
                 echo "[$key] $reponse_name - $reponse_console\n";
             }
             $which_game = readline("Enter the correct product: ");
-            while ($which_game > count($this->searchJSON->response->data->boxes) || $which_game < 0 || is_numeric($which_game) === false) {
+            while ($which_game > count($tmp_gaming_arr) || $which_game < 0 || is_numeric($which_game) === false) {
                 echo "Error: Unrecognised entry. Please enter a number corrisponding to the correct product.\n";
                 $which_game = readline("Enter the correct product: ");
-                if ($which_game <= count($this->searchJSON->response->data->boxes) && $which_game >= 0 && is_numeric($which_game) === true) {
+                if ($which_game <= count($tmp_gaming_arr) && $which_game >= 0 && is_numeric($which_game) === true) {
                     break;
                 }
             }
-            return $this->searchJSON->response->data->boxes[$which_game]->boxId;
+            return $tmp_gaming_arr[$which_game]->boxId;
         }
     } else {
         throw new BadFunctionCallException("No ID Found!", 2);
