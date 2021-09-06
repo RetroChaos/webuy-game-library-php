@@ -24,6 +24,7 @@ class Game {
             $this->gameName = $obj->response->data->boxDetails[0]->boxName;
             $this->gameSystem = $obj->response->data->boxDetails[0]->categoryFriendlyName;
             $this->gamePrice = $obj->response->data->boxDetails[0]->sellPrice;
+            $this->gameBoxArt = $obj->response->data->boxDetails[0]->imageUrls->large;
             $this->cexID = $obj->response->data->boxDetails[0]->boxId;
         } else {
             echo "No results found!\n";
