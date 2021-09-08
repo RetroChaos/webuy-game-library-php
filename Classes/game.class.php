@@ -36,6 +36,9 @@ class Game {
 
   public function downloadBoxArt() {
       if ($this->cexID != null) {
+        if (!file_exists('img')) {
+            mkdir('img', 0777, true);
+        }
         $ch = curl_init($this->gameBoxArt);
         $fp = fopen('img/' . $this->cexID . '.jpg', 'wb');
         curl_setopt($ch, CURLOPT_FILE, $fp);
