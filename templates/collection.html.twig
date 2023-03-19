@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-uppercase mt-3">Collection</h1>
+    <hr />
+    <div class="row mt-3">
+        <div class="d-flex flex-wrap">
+            {% for game in collection %}
+                <div class="card mx-3 mb-3" style="width: 18rem;">
+                    <div class="card-img-top">
+                        <img src="{{ game.boxArtUri }}" class="" alt="{{ game.name }}" />
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ game.name }}</h5>
+                        <p class="card-text mb-0"><b>System: </b>{{ game.system.name }}</p>
+                        <p class="card-text"><b>Current Price: </b>{{ game.currentPrice|format_currency('GBP') }}</p>
+                        <a href="#" class="btn btn-primary">See More</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
