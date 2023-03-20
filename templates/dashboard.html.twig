@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% set title = "Dashboard" %}
+
+{% block css %}
+	{{ parent() }}
+{% endblock %}
+
+{% block js %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<h2>Recently Added</h2>
+	<div class="row mt-3">
+		<div class="d-flex flex-wrap justify-content-center">
+			{% for game in newest %}
+				<div class="card mx-3 mb-3" style="width: 18rem;">
+					<div class="card-img-top">
+						<img src="{{ game.boxArtUri }}" class="" alt="{{ game.name }}" />
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{ game.name }}</h5>
+						<p class="card-text mb-0"><b>System: </b>{{ game.system.name }}</p>
+						<p class="card-text"><b>Current Price: </b>{{ game.currentPrice|format_currency('GBP') }}</p>
+						<a href="#" class="btn btn-primary">See More</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<hr />
+		<div class="d-flex flex-wrap justify-content-around">
+			<div class="alert alert-success">
+				<span class="d-block">Total Investment</span>
+				<span class="d-block"><b>{{ totalCurrentPrice|format_currency('GBP') }}</b></span>
+			</div>
+		</div>
+	</div>
+{% endblock %}

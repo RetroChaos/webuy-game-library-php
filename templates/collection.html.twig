@@ -1,31 +1,37 @@
 {% extends 'base.html.twig' %}
 
+{% set title = "Collection" %}
+
 {% block css %}
-    {{ parent() }}
+	{{ parent() }}
 {% endblock %}
 
 {% block js %}
-    {{ parent() }}
+	{{ parent() }}
 {% endblock %}
 
 {% block body %}
-    <h1 class="text-center text-uppercase mt-3">Collection</h1>
-    <hr />
-    <div class="row mt-3">
-        <div class="d-flex flex-wrap">
-            {% for game in collection %}
-                <div class="card mx-3 mb-3" style="width: 18rem;">
-                    <div class="card-img-top">
-                        <img src="{{ game.boxArtUri }}" class="" alt="{{ game.name }}" />
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ game.name }}</h5>
-                        <p class="card-text mb-0"><b>System: </b>{{ game.system.name }}</p>
-                        <p class="card-text"><b>Current Price: </b>{{ game.currentPrice|format_currency('GBP') }}</p>
-                        <a href="#" class="btn btn-primary">See More</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+	<div class="row mt-3">
+		<div class="d-flex flex-wrap justify-content-around">
+			<p class="text-center text-white">Total Investment: {{ totalCurrentPrice|format_currency('GBP') }}</p>
+		</div>
+		<table id="sortable" class="table table-responsive table-striped table-dark sortable">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col" class="sorttable_numeric">Current Price</th>
+					<th scope="col">System</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for game in collection %}
+					<tr>
+						<td>{{ game.name }}</td>
+						<td>{{ game.currentPrice|format_currency('GBP') }}</td>
+						<td>{{ game.system.name }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

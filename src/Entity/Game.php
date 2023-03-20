@@ -28,6 +28,7 @@
     private ?string $boxArtUri = null;
 
     #[ORM\ManyToMany(targetEntity:PriceHistory::class, mappedBy:'game')]
+    #[ORM\OrderBy(["timestamp" => "DESC"])]
     private Collection $priceHistory;
 
     #[ORM\ManyToOne(inversedBy:'games')]

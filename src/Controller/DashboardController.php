@@ -8,17 +8,15 @@
   use Symfony\Component\HttpFoundation\Response;
   use Symfony\Component\Routing\Annotation\Route;
 
-  class CollectionController extends AbstractController {
+  class DashboardController extends AbstractController {
     /**
      * @throws NonUniqueResultException
      */
-    #[Route('/collection', name: 'app_collection_all')]
-    public function showAll(GameRepository $gameRepository):Response {
-      $collection = $gameRepository->findAll();
+    #[Route('/', name: 'app_dashboard')]
+    public function dashboard(GameRepository $gameRepository): Response {
       $newest =  $gameRepository->findNewest();
       $totalCurrentPrice = $gameRepository->getTotalCurrentPrice();
-      return $this->render('collection.html.twig', [
-        "collection" => $collection,
+      return $this->render('dashboard.html.twig', [
         "newest" => $newest,
         "totalCurrentPrice" => $totalCurrentPrice['totalCurrentPrice']
       ]);

@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 <html lang="en-gb">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}CEX Tool{% endblock %}</title>
-        {% block css %}
-            <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-            <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        {% endblock %}
-        {% block js %}
-            <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-            <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-            <script src="{{ asset('js/global.js') }}"></script>
-        {% endblock %}
-    </head>
-    <body>
-        <div class="container">
-            {% block body %}{% endblock %}
-        </div>
+	<head>
+		<meta charset="UTF-8">
+		<title>CEX Library | {{ title }}</title>
+		{% block css %}
+			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		{% endblock %}
+		{% block js %}
+			<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+			<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
+			<script src="{{ asset('js/sorttable.js') }}"></script>
+			<script src="{{ asset('js/global.js') }}"></script>
+		{% endblock %}
+	</head>
+	<body>
+		<h1>{{ title }}</h1>
+		<div class="container" id="body">
+			{% block body %}{% endblock %}
+		</div>
 
-        <!--Side Nav-->
-        <nav class="vertical-nav">
-            <ul class="icon-menu d-none d-lg-block">
-                <li class="icon-box">
-                    <i class="fa fa-solid fa-home"></i>
-                    <a href="{{ path('app_collection_all') }}">
-                        <h2>Collection</h2>
-                    </a>
-                </li>
-                <li class="icon-box">
-                    <i class="fa fa-solid fa-magnifying-glass"></i>
-                    <a href="{{ path('app_search') }}">
-                        <h2>Search</h2>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+		<!--Side Nav-->
+		<nav class="vertical-nav">
+			<ul class="icon-menu d-none d-lg-block">
+				<li class="icon-box">
+					<i class="fa fa-solid fa-home"></i>
+					<a href="{{ path('app_dashboard') }}">
+						<h2>Dashboard</h2>
+					</a>
+				</li>
+				<li class="icon-box">
+					<i class="fa fa-solid fa-gamepad"></i>
+					<a href="{{ path('app_collection_all') }}">
+						<h2>Collection</h2>
+					</a>
+				</li>
+				<li class="icon-box">
+					<i class="fa fa-solid fa-magnifying-glass"></i>
+					<a href="{{ path('app_search') }}">
+						<h2>Search</h2>
+					</a>
+				</li>
+			</ul>
+		</nav>
 
-        <!--Scroll To Top-->
-        <a href="#top" id="scrollToTop" title="Scroll To Top"><i class="fas fa-arrow-up"></i></a>
-    </body>
+		<footer>
+			<small class="text-white text-center">The CEX Library Tool is open source software released under the <a href="http://www.gnu.org/licenses/">GNU/GPL License</a> | Created by Samuel "Freddie" Carnaby.</small>
+		</footer>
+
+		<!--Scroll To Top-->
+		<a href="#top" id="scrollToTop" title="Scroll To Top"><i class="fas fa-arrow-up"></i></a>
+	</body>
 </html>

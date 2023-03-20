@@ -23,6 +23,7 @@ class PriceHistory
     private ?string $price = null;
 
     #[ORM\ManyToMany(targetEntity: Game::class, inversedBy: 'priceHistory')]
+    #[ORM\OrderBy(["timestamp" => "DESC"])]
     private Collection $game;
 
     public function __construct()

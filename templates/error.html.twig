@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% set title = "Error!" %}
+
+{% block css %}{{ parent() }}{% endblock %}
+
+{% block js %}{{ parent() }}{% endblock %}
+
+{% block body %}<p class="text-white mt-3">{{ errorMsg }}{% endblock %}

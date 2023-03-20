@@ -30,7 +30,7 @@
       $response = $client->request('GET', $queryUrl);
       $obj = json_decode($response->getContent(), false);
       $tmp_gaming_arr = array();
-      if ($obj != null && $obj->response->ack == "Success") {
+      if ($obj != null && isset($obj->response->data->boxes) && $obj->response->ack == "Success") {
         foreach($obj->response->data->boxes as $key => $value) {
           // Make sure you're returning only gaming software
           if($value->superCatId == 1) {
@@ -42,6 +42,8 @@
             ];
           }
         }
+      } else {
+        return $this->render("error.html.twig", ["errorMsg" => "No Results Found!"]);
       }
       return $this->render('searchResults.html.twig', [
         "results" => $tmp_gaming_arr
@@ -78,6 +80,8 @@
         $entityManager->persist($system);
         $entityManager->persist($game);
         $entityManager->flush();
+      } else {
+        return new Response("No Results Found!");
       }
       return $this->redirectToRoute('app_search');
     }
