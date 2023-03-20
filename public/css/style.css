@@ -3,7 +3,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	color: #F67F24
+	color: #e21114
 }
 
 
@@ -13,7 +13,7 @@ html {
 }
 
 hr {
-	border-top: 2px solid #F67F24;
+	border-top: 2px solid #e21114;
 	width: 50%;
 	margin: 24px auto;
 	opacity: 1;
@@ -52,7 +52,7 @@ label {
 }
 
 .card-img-top {
-	border-bottom: 5px solid #f67f24;
+	border-bottom: 5px solid #cc080b;
 	overflow: hidden;
 	position: relative;
 	height: 300px;
@@ -68,8 +68,8 @@ label {
 }
 
 .card-img-top:hover > img {
-	transform: scale(1.2);
-	/* filter: blur(1px); */
+	transform: scale(1.05);
+	filter: blur(1px);
 	transition: 0.5s ease-in-out;
 }
 
@@ -77,7 +77,7 @@ label {
 ul.icon-menu li.icon-box.active, ul.icon-menu li.icon-box:hover,
 ul.icon-menu li.icon-box.active, ul.icon-menu li.icon-box:hover,
 .icon-box h2 {
-	background-color: #f67f24
+	background-color: #cc080b
 }
 
 @media  (min-width: 992px) {
@@ -211,7 +211,13 @@ ul.icon-menu.horizontal li.icon-box i {
 	font-size: 24px;
 }
 
-/*** SCROLL TO TOP BUTTON ***/
+#boxArt {
+	border: 2px #cc080b solid;
+	border-radius: 10px;
+	max-height: 300px;
+}
+
+/** SCROLL TO TOP BUTTON */
 #scrollToTop {
 	display: none;
 	position: fixed;
@@ -230,7 +236,7 @@ ul.icon-menu.horizontal li.icon-box i {
 }
 
 #scrollToTop:hover {
-	background-color: #555; /* Add a dark-grey background on hover */
+	background-color: #555;
 	opacity: 1;
 }
 
