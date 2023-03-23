@@ -67,10 +67,17 @@
         if($game == null) {
           $game = new Game();
         }
+        $ageRating = null;
+        foreach($content->attributeInfo as $attribute) {
+          if($attribute->attributeFriendlyName == "PEGI Certificate") {
+            $ageRating = $attribute->attributeValue[0];
+          }
+        }
         $game->setCexId($content->boxId)
              ->setBoxArtUri($content->imageUrls->large)
              ->setCurrentPrice($content->sellPrice)
-             ->setName($content->boxName);
+             ->setName($content->boxName)
+             ->setAgeRating($ageRating);
         $system = $systemRepository->findOneBy(["cexId" => $content->categoryId]);
         if($system == null) {
           $system = new System();

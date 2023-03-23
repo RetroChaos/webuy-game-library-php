@@ -266,7 +266,7 @@ ul.icon-menu.horizontal li.icon-box i {
 /* Sortable tables */
 table.sortable thead {
 	background-color:#dedede;
-	color:#666666;
+	color:#999;
 	font-weight: bold;
 	cursor: default;
 }

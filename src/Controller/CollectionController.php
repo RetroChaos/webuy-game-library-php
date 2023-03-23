@@ -2,6 +2,7 @@
 
   namespace App\Controller;
 
+  use App\Entity\Game;
   use App\Repository\GameRepository;
   use Doctrine\ORM\NonUniqueResultException;
   use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,5 +23,12 @@
         "newest" => $newest,
         "totalCurrentPrice" => $totalCurrentPrice['totalCurrentPrice']
       ]);
+    }
+
+    #[Route('collection/{id}', name: 'app_collection_single')]
+    public function showSingle(Game $game): Response {
+      return $this->render('game.html.twig', [
+          "game" => $game
+        ]);
     }
   }

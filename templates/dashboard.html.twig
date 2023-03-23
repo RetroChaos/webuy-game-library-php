@@ -20,19 +20,21 @@
 						<img src="{{ game.boxArtUri }}" class="" alt="{{ game.name }}" />
 					</div>
 					<div class="card-body">
-						<h5 class="card-title">{{ game.name }}</h5>
+						<h5 class="card-title text-black">{{ game.name }}</h5>
 						<p class="card-text mb-0"><b>System: </b>{{ game.system.name }}</p>
 						<p class="card-text"><b>Current Price: </b>{{ game.currentPrice|format_currency('GBP') }}</p>
-						<a href="#" class="btn btn-primary">See More</a>
+						<a href="{{ path('app_collection_single', {'id': game.id}) }}" class="btn btn-primary">See More</a>
 					</div>
 				</div>
 			{% endfor %}
 		</div>
 		<hr />
 		<div class="d-flex flex-wrap justify-content-around">
-			<div class="alert alert-success">
-				<span class="d-block">Total Investment</span>
-				<span class="d-block"><b>{{ totalCurrentPrice|format_currency('GBP') }}</b></span>
+			<div class="alert alert-success" style="width: 250px">
+				<span class="d-block">Total Investment <b>{{ totalCurrentPrice|format_currency('GBP') }}</b></span>
+			</div>
+			<div class="alert alert-success" style="width: 250px">
+				<span class="d-block">Total Games: <b>{{ totalGames }}</b></span>
 			</div>
 		</div>
 	</div>

@@ -16,9 +16,11 @@
     public function dashboard(GameRepository $gameRepository): Response {
       $newest =  $gameRepository->findNewest();
       $totalCurrentPrice = $gameRepository->getTotalCurrentPrice();
+      $totalGames = $gameRepository->getTotalGames();
       return $this->render('dashboard.html.twig', [
         "newest" => $newest,
-        "totalCurrentPrice" => $totalCurrentPrice['totalCurrentPrice']
+        "totalCurrentPrice" => $totalCurrentPrice['totalCurrentPrice'],
+        "totalGames" => $totalGames['totalGames']
       ]);
     }
   }

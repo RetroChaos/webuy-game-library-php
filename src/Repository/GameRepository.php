@@ -57,6 +57,13 @@ class GameRepository extends ServiceEntityRepository
                   ->getOneOrNullResult();
   }
 
+  public function getTotalGames() {
+    return $this->createQueryBuilder('q')
+                ->select("COUNT(q.name) as totalGames")
+                ->getQuery()
+                ->getOneOrNullResult();
+  }
+
   public function findAll(): array {
     return $this->findBy(array(), array('name' => 'ASC'));
   }
