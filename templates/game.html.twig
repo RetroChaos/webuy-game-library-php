@@ -8,18 +8,47 @@
 
 {% block js %}
 	{{ parent() }}
+	<script type="text/javascript">
+    function ajaxCall() {
+      $('.notification').hide();
+      let url = "/collection/{{ game.id }}/edit/post";
+      let formData = {
+        name: $('#name').val() ?? null,
+        ageRating: $('#ageRating').val() ?? null,
+      };
+      $.ajax({
+               type: "POST",
+               url: url,
+               data: formData,
+               dataType: "json",
+               encode: true,
+               success: function() {
+                 successNotification();
+               }
+             });
+    }
+	</script>
 {% endblock %}
 
 {% block body %}
-	<div class="row mt-3">
-		<div class="col-md-6 text-white">
-			<p><b>Name:</b> {{ game.name }}</p>
-			<p><b>System:</b> {{ game.system.name }}</p>
-			<p><b>Current Price:</b> {{ game.currentPrice|format_currency('GBP') }}</p>
-			<p><b>Age Rating:</b> {{ game.ageRating }}</p>
+	<div class="container">
+		<div class="row my-3">
+			<div class="col-md-6 mb-3">
+				<img id="boxArt" src="{{ game.boxArtUri }}" alt="{{ game.name }}" />
+			</div>
+			<div class="col-md-6">
+				<div><label for="name" class="d-block fw-bold">Name: </label><input onchange="ajaxCall()" class="form-control d-block w-100" id="name" name="name" type="text" value="{{ game.name }}" /></div>
+				<div class="mt-2"><label for="system" class="fw-bold d-block">System: </label><input class="form-control d-block w-100" id="system" name="system" type="text" value="{{ game.system.name }}" readonly /></div>
+				<div class="mt-2"><label for="currentPrice" class="d-block fw-bold">Current Price: </label><input class="d-block w-100 form-control" id="currentPrice" name="currentPrice" type="text" value="{{ game.currentPrice|format_currency('GBP') }}" readonly /></div>
+				<div class="mt-2"><label for="ageRating" class="d-block fw-bold">Age Rating:</label><input onchange="ajaxCall()" class="d-block w-100 form-control" id="ageRating" name="ageRating" type="text" value="{{ game.ageRating }}" /></div>
+			</div>
 		</div>
-		<div class="col-md-6">
-			<img id="boxArt" src="{{ game.boxArtUri }}" alt="{{ game.name }}" />
+		<hr />
+		<div class="mt-3 col-12">
+			<h3 class="text-center">Price History</h3>
+			{% for priceHistory in game.priceHistory %}
+				<p><b>{{ priceHistory.timestamp|date('d-m-Y H:i:s') }} - </b> {{ priceHistory.price|format_currency('GBP') }}</p>
+			{% endfor %}
 		</div>
 	</div>
 {% endblock %}

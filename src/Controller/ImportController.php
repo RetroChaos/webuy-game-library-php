@@ -3,6 +3,7 @@
   namespace App\Controller;
 
   use App\Entity\Game;
+  use App\Entity\PriceHistory;
   use App\Entity\System;
   use App\Repository\GameRepository;
   use App\Repository\SystemRepository;
@@ -63,29 +64,36 @@
       $obj = json_decode($response->getContent(), false);
       $content = $obj->response->data->boxDetails[0];
       if ($content != null || $obj->response->ack == "Success") {
+        $ageRating = null;
+        if(isset($content->attributeInfo)) {
+          foreach($content->attributeInfo as $attribute) {
+            if($attribute->attributeFriendlyName == "PEGI Certificate") {
+              $ageRating = $attribute->attributeValue[0];
+            }
+          }
+        }
         $game = $gameRepository->findOneBy(["cexId" => $content->boxId]);
         if($game == null) {
           $game = new Game();
+          $game->setCexId($content->boxId)
+               ->setBoxArtUri($content->imageUrls->large)
+               ->setName($content->boxName)
+               ->setAgeRating($ageRating);
         }
-        $ageRating = null;
-        foreach($content->attributeInfo as $attribute) {
-          if($attribute->attributeFriendlyName == "PEGI Certificate") {
-            $ageRating = $attribute->attributeValue[0];
-          }
-        }
-        $game->setCexId($content->boxId)
-             ->setBoxArtUri($content->imageUrls->large)
-             ->setCurrentPrice($content->sellPrice)
-             ->setName($content->boxName)
-             ->setAgeRating($ageRating);
+        $game->setCurrentPrice($content->sellPrice);
         $system = $systemRepository->findOneBy(["cexId" => $content->categoryId]);
         if($system == null) {
           $system = new System();
           $system->setName($content->categoryFriendlyName)->setCexId($content->categoryId);
         }
         $game->setSystem($system);
+        $priceHistory = new PriceHistory();
+        $priceHistory->setTimestamp(new \DateTime());
+        $priceHistory->setPrice($content->sellPrice);
+        $game->addPriceHistory($priceHistory);
         $entityManager->persist($system);
         $entityManager->persist($game);
+        $entityManager->persist($priceHistory);
         $entityManager->flush();
       } else {
         return new Response("No Results Found!");

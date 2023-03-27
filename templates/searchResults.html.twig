@@ -25,19 +25,21 @@
 {% endblock %}
 
 {% block body %}
-	<div class="row mt-3">
-		<div class="col-md-6">
-			<form method="POST" action="{{ path('app_import_game_by_id') }}">
-				<select class="form-select mb-3" name="gameSelection" id="gameSelection">
-					{% for result in results %}
-						<option value="{{ result.boxId }}" data-gameimgurl="{{ result.imgSrc }}" data-gamename="{{ result.name }}">{{ result.name }} - {{ result.system }}</option>
-					{% endfor %}
-				</select>
-				<input class="btn btn-primary mb-3" type="submit" value="Submit" />
-			</form>
-		</div>
-		<div class="col-md-6">
-			<img id="boxArt" src="{{ firstEL.imgSrc }}" alt="{{ firstEL.name }}" />
+	<div class="container">
+		<div class="row mt-3">
+			<div class="col-md-6">
+				<form method="POST" action="{{ path('app_import_game_by_id') }}">
+					<select class="form-select mb-3 w-100" name="gameSelection" id="gameSelection">
+						{% for result in results %}
+							<option value="{{ result.boxId }}" data-gameimgurl="{{ result.imgSrc }}" data-gamename="{{ result.name }}">{{ result.name }} - {{ result.system }}</option>
+						{% endfor %}
+					</select>
+					<input class="btn btn-primary mb-3" type="submit" value="Submit" />
+				</form>
+			</div>
+			<div class="col-md-6">
+				<img id="boxArt" src="{{ firstEL.imgSrc }}" alt="{{ firstEL.name }}" />
+			</div>
 		</div>
 	</div>
 {% endblock %}

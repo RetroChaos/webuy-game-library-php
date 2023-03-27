@@ -1,9 +1,5 @@
-body {
-	background-color: hsl(233, 5%, 10%);
-}
-
-body > .container#body {
-	min-height: calc(100vh - 41px);
+body > #body {
+	min-height: calc(100vh - 124px);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -258,15 +254,20 @@ ul.icon-menu.horizontal li.icon-box i {
 	opacity: 0.7;
 }
 
+.notification {
+	position: absolute;
+	top: 103px;
+	right: 20px;
+	z-index: 2000;
+	display: none;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
 #scrollToTop:hover {
 	background-color: #555;
 	opacity: 1;
 }
 
-/* Sortable tables */
-table.sortable thead {
-	background-color:#dedede;
-	color:#999;
-	font-weight: bold;
-	cursor: default;
-}
