@@ -2,10 +2,6 @@ body > #body {
 	min-height: calc(100vh - 124px);
 }
 
-h1, h2, h3, h4, h5, h6 {
-	color: #fff
-}
-
 h1 {
 	background-color: #cc080b;
 	border-bottom: 2px solid #e21114;
@@ -14,6 +10,8 @@ h1 {
 	margin-bottom: 1rem;
 	position: relative;
 	display: block;
+	font-family: "Poppins", sans-serif;
+	color: #fff;
 }
 
 html {
@@ -41,10 +39,6 @@ img {
 	height: auto;
 }
 
-h1 {
-	font-family: "Poppins", sans-serif;
-}
-
 footer {
 	background-color: #262626;
 	bottom: 0;
@@ -64,10 +58,6 @@ small {
 	color: white;
 	display: block;
 	font-size: 80% !important;
-}
-
-label {
-	color: white;
 }
 
 .card-img-top {

@@ -16,7 +16,7 @@
 			<p class="text-center">Total Investment: {{ totalCurrentPrice|format_currency('GBP') }}</p>
 		</div>
 		<div class="container">
-			<table id="sortable" class="table table-striped table-dark sortable w-100">
+			<table id="sortable" class="table table-striped {% if darkMode == 1%}table-dark{% endif %} sortable w-100">
 				<thead>
 					<tr>
 						<th scope="col">Name</th>

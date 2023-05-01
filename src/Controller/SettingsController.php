@@ -3,7 +3,9 @@
   namespace App\Controller;
 
   use App\Repository\SettingRepository;
+  use Doctrine\ORM\EntityManagerInterface;
   use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+  use Symfony\Component\HttpFoundation\Request;
   use Symfony\Component\HttpFoundation\Response;
   use Symfony\Component\HttpKernel\Kernel;
   use Symfony\Component\Routing\Annotation\Route;
@@ -24,5 +26,20 @@
         'info' => $info,
         'generalSettings' => $settingRepository->findAll()
       ]);
+    }
+    #[Route('/settings/darkMode/post', name: 'app_settings_darkMode_updatePost', methods: 'post')]
+    public function updateDarkMode(Request $request, SettingRepository $settingRepository, EntityManagerInterface $entityManager): Response {
+      $darkMode = $settingRepository->findOneBy(["name" => "darkMode"]);
+      if($request->request->get("darkMode") !== null && $request->request->get("darkMode") == 'true') {
+        $darkMode->setValue(1);
+      } else {
+        $darkMode->setValue(0);
+      }
+      $entityManager->persist($darkMode);
+      $entityManager->flush();
+
+      $response = new Response(json_encode(["success" => true]));
+      $response->headers->set('content-type', 'application/json');
+      return $response;
     }
   }
